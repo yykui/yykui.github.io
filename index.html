@@ -10,7 +10,42 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
   </head>
   <body>
-  <h1>我在github上的博客</h1>
-  <url href = " http://yangyikui.blogspot.com/">谷歌博客地址</url>
+ Tomcat, a very familiar name in J2ee world. An excellent example of how open source is growing so powerful in the server domain.
+
+In Windows, Tomcat can be setup in two ways
+1. Install the Tomcat as a standalone server
+2. Install the Tomcat as a windows service
+
+The first method is fairly simple, which is nothing but just extracting the tomcat archive and running the startup script to run the Tomcat. Normally in a developers local system he would just extract the archive and run the Tomcat, however for running the Tomcat on the server the second method is preferred. Again there are two ways of installing Tomcat as a Windows service.
+
+1. If you are running the Tomcat installable exe file then follow the instructions to install the Tomcat as a service.
+2. If you have just extracted the Tomcat and wish to setup Tomcat as a Windows service or If you have already installed the Tomcat with the default name and would like to install another Tomcat instance with different Windows service name, then there are set of steps one should follow. Below are more details of the same. Lets take a look of it one by one.
+
+Under the Tomcat bin directory you would find two interesting executable files. Assuming that you are using Tomcat with 6.x version, however if you are using different version then the file names would be different accordingly.
+Tomcat6.exe - This is a service application for running Tomcat6 as Windows service
+Tomcat6w.exe - GUI application for monitoring and configuring Tomcat services.
+
+By invoking these executables with specific parameters we can install, update, edit, run, stop, monitor, delete the Windows service. However as these parameters are more techincal, Tomcat also provides a batch script, service.bat, with two simple commands install/remove. The usage of this batch script is as below.
+Usage: service install/remove [service_name]
+
+The service_name is the name of the Windows service and is an optional parameter. If you do not specify the service name then by default it will attempt to install/uninstall the service with name tomcat6.
+
+If you are planning to write a batch script of your own, similar to service.bat, then refer to Windows service HOW-TO in locally installed tomcat documentation or in the internet with linkhttp://tomcat.apache.org/tomcat-6.0-doc/windows-service-howto.html. It would also help you by looking at what all are being configured in the service.bat script provided by Tomcat.
+
+Tomcat6.exe is used to install, edit, run, stop and delete the Tomcat service. However if you are looking for a GUI interface for editing the service configuration then the answer to this would be Tomcat6w.exe. Tomcat6w.exe is used only for configuring and monitoring the Tomcat services, so it is a prerequisite to have the Tomcat service already installed for running Tomcat6w.exe. There are two modes of running this application.
+1. Run as a GUI based service editor
+2. Run as a GUI based service monitor
+
+By just running this exe without any parameter it would by default attempt to open the service editor with service name as file name without 'w'. Here it would be Tomcat6, assuming that you are running Tomcat6w.exe. If your service name is different, i.e., other than the Tomcat6, then you can open this service configuration by running the command: Tomcat6w //ES//<service_name>. Or much simpler solution is to make a copy of this executable file and rename it as <service_name>w.exe. In this case by just running this new file it would open the editor for windows service with the name as <service_name>.
+
+To run the Tomcat as a monitor, you need to specify the command as: Tomcat6w //MS//<service_name>. It would be beneficial if you write a simple batch script, say monitor.bat, under Tomcat bin directory with just above command for monitoring purpose. Again remember if you have made a copy of Tomcat6w with service name as said above then the command can also be<service_name>w //MS//
+
+In summary, below steps help you in managing the Tomcat as a windows service.
+1. Install: In command prompt, cd to Tomcat bin and run the command: service install <service_name>
+2. Edit: Make a copy of file tomcat6w.exe and rename it to <service_name>w.exe. Just run this file to open service editor.
+3. Monitor: Prepare a batch script with command: tomcat6w //MS//<service_name> (or)<service_name>w //MS//. Run this script to open service monitor.
+4. Uninstall: In command prompt, cd to Tomcat bin and run the command: service remove <service_name>
+
+Note: The Windows service name and service display name are different and service name is case insensitive.http://techwheel.blogspot.jp/2010/03/tomcat-as-windows-service.html
   </body>
 </html>
